@@ -105,7 +105,7 @@ class Lookup(Thread):
                 self.listed[self.dnslist]['HOST'] = host_record[0].address
                 text_record = self.resolver.query(self.host, "TXT")
                 if len(text_record) > 0:
-                    self.listed[self.dnslist]['TEXT'] = "\n".join(text_record[0].strings)
+                    self.listed[self.dnslist]['TEXT'] = text_record[0].to_text()
             self.listed[self.dnslist]['ERROR'] = False
         except NXDOMAIN:
             self.listed[self.dnslist]['ERROR'] = True
@@ -166,7 +166,7 @@ class RBLSearch(object):
                     print("  + Host information: %s" % \
                           (listed[key]['HOST']))
                 if 'TEXT' in listed[key].keys():
-                    print("    + Additional information: %s" % \
+                    print("    + Additional information:\n      %s" % \
                           (listed[key]['TEXT']))
             else:
                 #print "*** Error contacting %s ***" % key
